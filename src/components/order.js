@@ -10,11 +10,17 @@ class Order extends Component {
   renderOrder(eachFish) {
     const fish = this.props.fishes[eachFish];
     const count = this.props.order[eachFish];
+    const removeButton = (
+      <button onClick={() => this.props.removeFromOrder(eachFish)}>
+        &times;
+      </button>
+    );
 
     if (!fish || fish.status === "unavailable") {
       return (
         <li key={eachFish}>
           Sorry, {fish ? fish.name : "fish"} is no longer available
+          {removeButton}
         </li>
       );
     }
@@ -24,6 +30,7 @@ class Order extends Component {
         <span>
           {count}
           lbs {fish.name}
+          {removeButton}
         </span>
         <span className="price">{formatPrice(count * fish.price)}</span>
       </li>
@@ -57,5 +64,11 @@ class Order extends Component {
     );
   }
 }
+
+Order.propTypes = {
+  fishes: React.PropTypes.object.isRequired,
+  order: React.PropTypes.object.isRequired,
+  removeFromOrder: React.PropTypes.func.isRequired
+};
 
 export default Order;

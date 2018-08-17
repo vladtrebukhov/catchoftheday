@@ -59,6 +59,13 @@ class Inventory extends Component {
           type="text"
           placeholder="Fish Image"
         />
+        <button
+          onClick={() => {
+            this.props.removeFish(eachFish);
+          }}
+        >
+          Remove Fish
+        </button>
       </div>
     );
   }
@@ -74,5 +81,13 @@ class Inventory extends Component {
     );
   }
 }
+
+Inventory.propTypes = {
+  fishes: React.PropTypes.object.isRequired,
+  removeFish: React.PropTypes.func.isRequired,
+  addFish: React.PropTypes.func.isRequired,
+  loadSamples: React.PropTypes.func.isRequired,
+  updateFish: React.PropTypes.func.isRequired
+};
 
 export default Inventory;

@@ -15,6 +15,7 @@ class App extends React.Component {
     this.addToOrder = this.addToOrder.bind(this);
     this.updateFish = this.updateFish.bind(this);
     this.removeFish = this.removeFish.bind(this);
+    this.removeFromOrder = this.removeFromOrder.bind(this);
     // initial state
     this.state = {
       fishes: {},
@@ -61,8 +62,23 @@ class App extends React.Component {
   }
 
   addToOrder(fish) {
-    const order = { ...this.state.order };
+    const order = {
+      ...this.state.order
+    };
     order[fish] = order[fish] + 1 || 1;
+    this.setState({
+      order: order
+    });
+  }
+
+  removeFromOrder(eachFish) {
+    const order = {
+      ...this.state.order
+    };
+
+    //here I can use delete since order is not tied to firebase
+    delete order[eachFish];
+
     this.setState({
       order: order
     });
@@ -82,17 +98,25 @@ class App extends React.Component {
   }
 
   removeFish(eachFish) {
-    const fishes = { ...this.state.fishes };
+    const fishes = {
+      ...this.state.fishes
+    };
     fishes[eachFish] = null;
 
-    this.setState({ fishes: fishes });
+    this.setState({
+      fishes: fishes
+    });
   }
 
   updateFish(eachFish, updatedFish) {
-    const fishes = { ...this.state.fishes };
+    const fishes = {
+      ...this.state.fishes
+    };
 
     fishes[eachFish] = updatedFish;
-    this.setState({ fishes: fishes });
+    this.setState({
+      fishes: fishes
+    });
   }
 
   render() {
@@ -101,25 +125,30 @@ class App extends React.Component {
         <div className="menu">
           <Header tagline="Fresh Seafood Market" />
           <ul className="list-of-fishes">
-            {/* use Object.keys to get an array of the fish from the object, then return each Fish with a unique key and details */}
+            {" "}
+            {/* use Object.keys to get an array of the fish from the object, then return each Fish with a unique key and details */}{" "}
             {Object.keys(this.state.fishes).map(fish => {
               return (
                 <Fish
                   key={fish}
-                  fish={fish} // used to pass into the fish function since you cant pass in the key PROP
-                  info={this.state.fishes[fish]}
+                  fish={fish}
+                  info={
+                    this.state.fishes[fish] // used to pass into the fish function since you cant pass in the key PROP
+                  }
                   addToOrder={this.addToOrder}
                 />
               );
-            })}
-          </ul>
-        </div>
+            })}{" "}
+          </ul>{" "}
+        </div>{" "}
         <Order
           fishes={this.state.fishes}
           order={this.state.order}
           params={this.props.params}
-        />
+          removeFromOrder={this.removeFromOrder}
+        />{" "}
         <Inventory
+          removeFish={this.removeFish}
           fishes={this.state.fishes}
           addfish={this.addFish}
           loadSamples={this.loadSamples}
@@ -129,5 +158,9 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  params: React.PropTypes.object.isRequired
+};
 
 export default App;
