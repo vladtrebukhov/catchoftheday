@@ -46,7 +46,7 @@ class Inventory extends Component {
       return;
     }
 
-    //get store info
+    //get store info from firebase
     const storeReference = base.database().ref(this.props.storeId);
 
     //query the firebase once for the store data
@@ -69,7 +69,7 @@ class Inventory extends Component {
     return (
       <nav className="login">
         <h2>Inventory</h2>
-        <p>Sign in to manage your store's inventory</p>
+        <p>Sign in to manage your stores inventory</p>
         <button className="github" onClick={() => this.authenticate("github")}>
           Log in with Github
         </button>
