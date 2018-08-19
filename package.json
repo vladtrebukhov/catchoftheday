@@ -2,6 +2,7 @@
   "name": "cotd",
   "version": "0.0.1",
   "private": true,
+  "homepage": "https://vladtrebukhov.github.io/catchoftheday",
   "devDependencies": {
     "autoprefixer-stylus": "0.10.0",
     "babel-eslint": "^7.1.1",
@@ -15,6 +16,8 @@
   },
   "dependencies": {
     "history": "4.2.0",
+    "now": "^11.3.11",
+    "now-serve": "^0.5.1",
     "re-base": "2.2.0",
     "react": "15.3.2",
     "react-addons-css-transition-group": "15.3.2",
